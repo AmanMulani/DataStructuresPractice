@@ -140,7 +140,70 @@ public class AVLTree<E> {
             System.out.println("The required node does not exist");
             return;
         }
-        //Implement the deletion logic.
+
+        if(currentSize == 1) {
+            this.root = null;
+            currentSize--;
+            return;
+        }
+        delete(requiredNode);
+        // printInOrder(this.root);
+    }
+
+
+    private void delete(Node<E> node) {
+        if(node.left == null && node.right == null) {
+            replaceNode(node, null);
+        } else if(node.left == null) {
+            replaceNode(node, node.right);
+        } else if(node.right == null) {
+            replaceNode(node, node.left);
+        } else {
+            System.out.println("I am here");
+            Node<E> inorderPredecessor = inOrderPredecessor(node);
+            if(inorderPredecessor.parent.right == inorderPredecessor) {
+                inorderPredecessor.parent.right = null;
+            } else {
+                inorderPredecessor.parent.left = null;
+            }
+            replaceNode(node, inorderPredecessor);
+        }
+
+        currentSize--;
+
+    }
+
+
+    private void replaceNode(Node<E> u, Node<E> v) {
+        if(u.parent == null) {
+            this.root = v;
+            return;
+        }
+
+        if(u.parent.left == u) {
+            u.parent.left = v;
+        } else {
+            u.parent.right = v;
+        }
+
+        if(v!=null) {
+            v.parent = u.parent;
+        }
+
+    }
+
+
+    private Node<E> inOrderPredecessor(Node<E> node) {
+        if(node == null) {
+            return null;
+        }
+        Node<E> tempNode = node;
+        tempNode = node.left;
+        while(tempNode!=null && tempNode.right != null) {
+            tempNode = tempNode.right;
+        }
+
+        return tempNode;
     }
 
 

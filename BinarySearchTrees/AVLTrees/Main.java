@@ -10,8 +10,17 @@ public class Main {
         avl.add(9);
         avl.add(2);
         avl.add(11);
-
         avl.printInOrder(avl.root);
+        System.out.println();
+        avl.delete(73);
+        avl.printInOrder(avl.root);
+        System.out.println();
+        avl.delete(3);
+        avl.printInOrder(avl.root);
+        System.out.println();
+        avl.delete(2);
+        avl.printInOrder(avl.root);
+        System.out.println();
 
     }
 }
